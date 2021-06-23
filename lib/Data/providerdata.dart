@@ -38,6 +38,38 @@ Future<List> getSquadIds(String teamName) async {
   return squadIds;
 }
 
+Future<List> getMatchesFromDB(String leagueName, int page) async {
+  List matches;
+  var url =
+      "https://score-sorcery.herokuapp.com/match/fetch_matches?limit=10&page=" +
+          page.toString() +
+          "&sort=desc&league=" +
+          leagueName;
+  var response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'image/png',
+  });
+  var result = jsonDecode(response.body);
+  matches = result["matches"];
+  return matches;
+}
+
+Future<ImageProvider> getTeamImage(String teamId) async {
+  ImageProvider image;
+  var url = 'https://score-sorcery.herokuapp.com/team/fetch_avatar/' + '1';
+  var response = await http.get(url, headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'image/png',
+  });
+  var result = response.bodyBytes;
+  image = MemoryImage(result);
+
+  // print(result.runtimeType);
+  // print(image);
+  print(response.statusCode);
+  return image;
+}
+
 class VariableSettings extends ChangeNotifier {
   List squadIds = [];
   List idsInListView = [];
@@ -77,5 +109,35 @@ class VariableSettings extends ChangeNotifier {
 
   ImageProvider fetchImageById(var id) {
     return imageDict[id];
+  }
+
+  // stats data
+  List matches = [];
+  List get getMatches => matches;
+
+  Future<List> fetchRecentMatches(String leagueName, int pages) async {
+    List tempMatches = await getMatchesFromDB(leagueName, pages);
+    for (int i = 0; i < tempMatches.length; i++) {
+      String stadium = tempMatches[i]["stadium"];
+      int match_id = tempMatches[i]["match_id"];
+      int teamA_goals = tempMatches[i]["teamA_goals"];
+      int teamB_goals = tempMatches[i]["teamB_goals"];
+      int teamA_id = tempMatches[i]["teamA_id"];
+      int teamB_id = tempMatches[i]["teamB_id"];
+
+      ImageProvider imageA = await getTeamImage(teamA_id.toString());
+      ImageProvider imageB = await getTeamImage(teamB_id.toString());
+
+      matches.add({
+        "stadium": stadium,
+        "match_id": match_id,
+        "teamA_goals": teamA_goals,
+        "teamB_goals": teamB_goals,
+        "imageA": imageA,
+        "imageB": imageB
+      });
+    }
+    print(matches);
+    notifyListeners();
   }
 }

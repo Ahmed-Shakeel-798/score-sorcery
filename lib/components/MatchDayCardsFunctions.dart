@@ -4,55 +4,43 @@ import 'package:fyp/Data/MatchDayData.dart';
 import 'package:fyp/Screens/MatchDayInfo.dart';
 import 'package:fyp/constants.dart';
 
-
-
- Row matchDayCard(Laliga match,double WidthOfMatchDayCard,double HeightOfMatchDayCard,Color color ) {
-    return Row(
-                children: [
-                  imageDisplayed("lib/images/"+match.homeTeamCode+".png"),
-                  Container(
-                    width: WidthOfMatchDayCard/2,
-                    height: HeightOfMatchDayCard,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        
-                        matchDayInfo("Matchday "+match.matchDay,FontWeight.bold,20,color),
-                        matchDayInfo(match.time,FontWeight.normal,15,color),
-                        matchDayInfo(match.stadium,FontWeight.normal,15,color)
-                        
-                      
-                      ],
-                    ),
-                  ),
-                  imageDisplayed("lib/images/"+match.awayTeamCode+".png"),
-                  
-                ],
-              );
-  }
-
-
-
-
-  Text matchDayInfo(String info,FontWeight  boldnss, double size,Color color) {
-    return Text(
-                          info,
-                          style: TextStyle(
-                            fontWeight: boldnss,
-                            fontSize: size,
-                            color: color
-                          ),
-                        );
-  }
-
-  ClipRRect imageDisplayed(String imagePath ) {
-    return ClipRRect(
-      child: Image.asset(
-        imagePath,
-        
+Row matchDayCard(var match, double WidthOfMatchDayCard,
+    double HeightOfMatchDayCard, Color color) {
+  return Row(
+    children: [
+      //"lib/images/"+match.homeTeamCode+".png"
+      imageDisplayed(match["imageA"]),
+      Container(
+        width: WidthOfMatchDayCard / 2,
         height: HeightOfMatchDayCard,
-        width: WidthOfMatchDayCard/4,
-      )
-                  );
-  }
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            matchDayInfo("Matchday 01", FontWeight.bold, 20, color),
+            matchDayInfo("09:00 PM", FontWeight.normal, 15, color),
+            matchDayInfo(match["stadium"], FontWeight.normal, 15, color)
+          ],
+        ),
+      ),
+      imageDisplayed(match["imageB"]),
+    ],
+  );
+}
 
+Text matchDayInfo(String info, FontWeight boldnss, double size, Color color) {
+  return Text(
+    info,
+    style: TextStyle(fontWeight: boldnss, fontSize: size, color: color),
+  );
+}
+
+ClipRRect imageDisplayed(var image) {
+  return ClipRRect(
+      child: Container(
+    height: HeightOfMatchDayCard,
+    width: WidthOfMatchDayCard / 4,
+    decoration: BoxDecoration(
+        image: DecorationImage(
+            image: image != null ? image : AssetImage("lib/images/Barca.png"))),
+  ));
+}
