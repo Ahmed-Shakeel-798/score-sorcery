@@ -5,7 +5,7 @@ import 'package:fyp/Screens/MatchDayInfo.dart';
 import 'package:fyp/constants.dart';
 
 Row matchDayCard(var match, double WidthOfMatchDayCard,
-    double HeightOfMatchDayCard, Color color) {
+    double HeightOfMatchDayCard, Color color, int index) {
   return Row(
     children: [
       //"lib/images/"+match.homeTeamCode+".png"
@@ -16,7 +16,8 @@ Row matchDayCard(var match, double WidthOfMatchDayCard,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            matchDayInfo("Matchday 01", FontWeight.bold, 20, color),
+            matchDayInfo("Matchday 0" + (index + 1).toString(), FontWeight.bold,
+                20, color),
             matchDayInfo("09:00 PM", FontWeight.normal, 15, color),
             matchDayInfo(match["stadium"], FontWeight.normal, 15, color)
           ],
@@ -31,6 +32,7 @@ Text matchDayInfo(String info, FontWeight boldnss, double size, Color color) {
   return Text(
     info,
     style: TextStyle(fontWeight: boldnss, fontSize: size, color: color),
+    textAlign: TextAlign.center,
   );
 }
 

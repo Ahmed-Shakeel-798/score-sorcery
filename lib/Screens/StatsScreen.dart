@@ -9,7 +9,8 @@ import 'package:fyp/constants.dart';
 
 class StatsScreen extends StatefulWidget {
   final selectedIndex;
-  StatsScreen({this.selectedIndex = 0});
+  final pageNumber;
+  StatsScreen({this.selectedIndex = 0, this.pageNumber = 0});
   @override
   _StatsScreenState createState() => _StatsScreenState();
 }
@@ -30,6 +31,7 @@ class _StatsScreenState extends State<StatsScreen> {
               ),
               StatsShow(
                 selectIndex: widget.selectedIndex,
+                pageNumber: widget.pageNumber,
               )
             ],
           ),

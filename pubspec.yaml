@@ -50,9 +50,14 @@ flutter:
     - lib/images/Player.png
     - lib/images/Barca.png
     - lib/images/Madrid.png
+    - lib/images/BuilderScreen.png
     - lib/images/Sevilla.png
     - lib/images/Valencia.png
     - lib/images/Laliga.png
+    - lib/images/SerieA.png
+    - lib/images/Bundes.png
+    - lib/images/Ligue1.png
+    - lib/images/Prem.png
     - lib/images/Icon.png
     - lib/images/Messi.png
 

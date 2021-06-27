@@ -1,5 +1,5 @@
 import 'dart:html';
-//import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
+import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/components/CustomAppBar.dart';
 import 'package:fyp/components/Info.dart';
@@ -30,11 +30,15 @@ class HomeScreen extends StatelessWidget {
               Container(
                   child: Column(
                 children: [
-                  //          LeagueTable(leagueName: "LaLiga",),
+                  LeagueTable(
+                    leagueName: "Laliga",
+                  ),
                   SizedBox(
                     height: 20,
                   ),
-                  //            LeagueTable(leagueName: "Serie A",),
+                  // LeagueTable(
+                  //   leagueName: "Serie A",
+                  // ),
                 ],
               ))
             ],
